@@ -23,73 +23,51 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+import loc from './locators'
 
-import locators from "./locators"
-
-Cypress.Commands.add('login', (email, password) => {
-    cy.get(locators.LOGIN.USER).type(email)
-    cy.get(locators.LOGIN.PASSWORD).type(password)
-    cy.get(locators.LOGIN.BTN_LOGIN).click()
-    cy.xpath(locators.TOAST + "[contains(., 'Bem vindo')]").should('exist')
+Cypress.Commands.add('login', (user, password) => {
+  cy.visit("https://barrigareact.wcaquino.me")
+  cy.get(loc.LOGIN.USER).type(user)
+  cy.get(loc.LOGIN.PASSWORD).type(password)
+  cy.get(loc.LOGIN.BTN_LOBIN).click()
+  cy.get(loc.MESSAGE).should('contain', 'Bem vindo')
 })
 
-Cypress.Commands.add('criar', (name) => {
-    cy.get(locators.MENU.SETTINGS).click()
-    cy.get(locators.MENU.CONTA).click()
-    cy.get(locators.CONTAS.NOME).type(name)
-    cy.get(locators.CONTAS.BTN_SALVAR).click()
+Cypress.Commands.add('resetApp', () => {
+  cy.get(loc.MENU.SETTINGS).click()
+  cy.get(loc.MENU.RESET).click()
 })
 
-Cypress.Commands.add('resetar', () => {
-    cy.get(locators.MENU.SETTINGS).click()
-    cy.get(locators.MENU.RESET).click()
-})
-
-Cypress.Commands.add('getToken', (email, password) => {
-    cy.request({
+Cypress.Commands.add('getToken', (user, password) => {
+  cy.request({
             method: 'POST',
-            url: '/signin',
+            url: "/signin",
             body: {
-                email,
-                redirecionar: false,
-                senha: password
+                email: user,
+                senha:  password
             }
-        }).then((response) => {
-            expect(response.status).to.equal(200)
-            expect(response.body).to.have.property('token')
-            Cypress.env('token', response.body.token)
-            return response.body.token
-        })
+        }).its('body.token').should('not.be.empty').then(token => token)
 })
 
 Cypress.Commands.add('resetApi', (token) => {
-    cy.request({
-        method: 'GET',
-        url: '/reset',
-    })
-})
-
-Cypress.Commands.add('getId', (nome) => {
-    cy.request({
-        method: 'POST',
-        url: '/contas',
-        body: {
-            nome
-        }
-    }).then((response) => {
-        return response.body.id
-    })
-})
-
-Cypress.Commands.overwrite('request', (originalFn, ...options) => {
-    if(options.length === 1) {
-        if(Cypress.env('token')){
-            options[0].headers = {
-                Authorization: `JWT ${Cypress.env('token')}`
-            }
-                
-        }
+  cy.request({
+    method: 'GET',
+    url: "/reset",
+    headers: {
+        Authorization: `JWT ${token}`
     }
-    return originalFn(...options)
+  }).its('status').should('be.equal', 200)
 })
-        
+
+Cypress.Commands.add('getId', (token, name) => {
+  cy.request({
+      method: 'POST',
+      url: "/contas",
+      headers: {
+          Authorization: `JWT ${token}`
+      },
+      body: {
+          nome: name
+      }
+  }).then(res => res.body.id)
+})

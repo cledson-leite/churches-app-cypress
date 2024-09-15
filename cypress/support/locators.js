@@ -1,23 +1,20 @@
 const locators = {
-    MENU: {
-        SETTINGS: '[data-test="menu-settings"]',
-        CONTA: '[href="/contas"]',
-        RESET: '[href="/reset"]',
-        MOVIMENTACAO: '[href="/movimentacao"]',
-        EXTRATO: '[href="/extrato"]',
-        CONFIG: '[href="/config"]'
-    },
-    LOGIN: {
-        USER: '[data-test="email"]',
-        PASSWORD: '[data-test="passwd"]',
-        BTN_LOGIN: '.btn'
-    },
-    CONTAS: {
-        NOME: '[data-test="nome"]',
-        BTN_SALVAR: '.btn',
-        XP_BTN_EDITAR: "//td[contains(.,'Conta de teste')]/..//i[@class='far fa-edit']",
-        XP_BTN_EXCLUIR: "//td[contains(.,'Conta de teste')]/..//i[@class='fas fa-trash']"
-    },
-    TOAST: "//div[@class='toast-message']",
+  LOGIN: {
+    USER: '[data-test="email"]',
+    PASSWORD: '[data-test="passwd"]',
+    BTN_LOBIN: '.btn'
+  },
+  MENU: {
+    SETTINGS: '[data-test="menu-settings"]',
+    CONTAS: '[href="/contas"]',
+    RESET: '[href="/reset"]',
+  },
+  CONTAS: {
+    NOME: '[data-test="nome"]',
+    BTN_SALVAR: '.btn',
+    XP_BTN_EDITAR: "//td[contains(.,'Conta antiga')]/..//i[@class='far fa-edit']",
+  },
+  MESSAGE: '.toast-message'
 }
+
 export default locators
