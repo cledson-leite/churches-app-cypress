@@ -1,7 +1,6 @@
 ///<reference types="cypress" />
 
 import loc from '../support/locators'
-import '../support/commandsContas'
 
 describe('Frontend level', () => {
     // beforeEach(() => {
