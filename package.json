@@ -1,5 +1,5 @@
 {
-  "name": "cypress",
+  "name": "churches-app-cypress",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
