@@ -24,7 +24,7 @@ describe('Backend level', () => {
         //     }).as('response')
 
         // cy.get('@response').then(response => {
-            expect(1+1).to.be(2)
+            expect(1+1).to.equal(2)
             
         // })
     })

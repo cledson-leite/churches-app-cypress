@@ -15,7 +15,7 @@ describe('Functional level', () => {
         // cy.acessarContas()
         // cy.inserirConta('Conta de teste')
         // cy.get(loc.MESSAGE).should('contain', 'Conta inserida com sucesso')
-        expect(1+1).to.be(2)
+        expect(1+1).to.equal(2)
     })
 
     // it('Deve retornar erro caso a conta ja exista', () => {

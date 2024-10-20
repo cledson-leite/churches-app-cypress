@@ -24,7 +24,7 @@ describe('Frontend level', () => {
     // })
 
     // it('teste cypress', () => {
-        expect(1+1).to.be(2)
+        expect(1+1).to.equal(2)
     // })
 
     // it('Deve retornar erro caso a conta ja exista', () => {
